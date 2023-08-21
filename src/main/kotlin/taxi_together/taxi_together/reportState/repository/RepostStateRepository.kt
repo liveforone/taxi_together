@@ -1,0 +1,7 @@
+package taxi_together.taxi_together.reportState.repository
+
+import taxi_together.taxi_together.reportState.domain.ReportState
+import org.springframework.data.jpa.repository.JpaRepository
+import taxi_together.taxi_together.reportState.repository.RepostStateCustomRepository
+
+interface RepostStateRepository : JpaRepository<ReportState, Long>, RepostStateCustomRepository
