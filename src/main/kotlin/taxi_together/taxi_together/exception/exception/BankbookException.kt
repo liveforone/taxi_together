@@ -1,0 +1,5 @@
+package taxi_together.taxi_together.exception.exception
+
+import taxi_together.taxi_together.exception.message.BankbookExceptionMessage
+
+class BankbookException(val bankbookExceptionMessage: BankbookExceptionMessage) : RuntimeException(bankbookExceptionMessage.message)
