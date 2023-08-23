@@ -42,7 +42,11 @@ class JwtTokenProvider(@Value(JwtConstant.SECRET_KEY_PATH) secretKey: String) {
     }
 
     fun generateToken(authentication: Authentication): LoginInfo {
-        return LoginInfo.create(UUID.fromString(authentication.name), generateAccessToken(authentication), generateRefreshToken())
+        return LoginInfo.create(
+            UUID.fromString(authentication.name),
+            generateAccessToken(authentication),
+            generateRefreshToken()
+        )
     }
 
     fun getAuthentication(accessToken: String): Authentication {
