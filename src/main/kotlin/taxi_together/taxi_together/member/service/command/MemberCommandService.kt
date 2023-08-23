@@ -55,14 +55,12 @@ class MemberCommandService @Autowired constructor(
 
     fun updateEmail(updateEmail: UpdateEmail, uuid: UUID) {
         memberServiceValidator.validateDuplicateEmail(updateEmail.newEmail!!)
-        memberRepository.findOneByUUID(uuid)
-            .also { it.updateEmail(updateEmail.newEmail) }
+        memberRepository.findOneByUUID(uuid).also { it.updateEmail(updateEmail.newEmail) }
     }
 
     fun updatePassword(updatePassword: UpdatePassword, uuid: UUID) {
         with(updatePassword) {
-            memberRepository.findOneByUUID(uuid)
-                .also { it.updatePw(newPassword!!, oldPassword!!) }
+            memberRepository.findOneByUUID(uuid).also { it.updatePw(newPassword!!, oldPassword!!) }
         }
     }
 
