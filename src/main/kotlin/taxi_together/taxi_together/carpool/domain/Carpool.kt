@@ -24,7 +24,8 @@ class Carpool private constructor(
         nullable = false,
         columnDefinition = CarpoolConstant.CARPOOL_STATE_TYPE
     ) var carpoolState: CarpoolState = CarpoolState.UNCOMPLETED,
-    @Column(nullable = false) val pickupZone: String,
+    @Column(nullable = false) val pickupLatitude: Double,
+    @Column(nullable = false) val pickupLongitude: Double,
     @Column(nullable = false, columnDefinition = DATETIME_TYPE) val pickupDate: Long,
     @Column(nullable = false) val destination: String,
     @Column(nullable = false) var individualFare: Int = 0
@@ -33,10 +34,11 @@ class Carpool private constructor(
         private fun createPickupDate(month: Int, day: Int, hour: Int, minute: Int) =
             LocalDateTime.of(LocalDate.of(LocalDate.now().year, month, day), LocalTime.of(hour, minute))
 
-        fun create(member: Member, pickupZone: String, month: Int, day: Int, hour: Int, minute: Int, destination: String): Carpool {
+        fun create(member: Member, pickupLatitude: Double, pickupLongitude: Double, month: Int, day: Int, hour: Int, minute: Int, destination: String): Carpool {
             return Carpool(
                 member = member,
-                pickupZone = pickupZone,
+                pickupLatitude = pickupLatitude,
+                pickupLongitude = pickupLongitude,
                 pickupDate = getDatetimeDigit(createPickupDate(month, day, hour, minute)),
                 destination = destination
             )
