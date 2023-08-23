@@ -19,8 +19,7 @@ class BankbookCommandService @Autowired constructor(
 
     fun updateBankbook(updateBankbook: UpdateBankbook) {
         with(updateBankbook) {
-            bankbookRepository.findOneByMemberUUID(memberUUID!!)
-                .also { it.updateBankbook(bank!!, accountNumber!!) }
+            bankbookRepository.findOneByMemberUUID(memberUUID!!).also { it.updateBankbook(bank!!, accountNumber!!) }
         }
     }
 }
