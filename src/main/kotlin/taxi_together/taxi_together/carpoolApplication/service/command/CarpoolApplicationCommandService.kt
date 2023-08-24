@@ -26,7 +26,7 @@ class CarpoolApplicationCommandService @Autowired constructor(
 
     fun cancelCarpoolApplication(cancelCarpoolApplication: CancelCarpoolApplication) {
         with(cancelCarpoolApplication) {
-            carpoolApplicationValidator.validateExcessiveCarpool(carpoolUUID!!)
+            carpoolApplicationValidator.validateCarpoolStateAndDate(carpoolUUID!!)
             carpoolApplicationRepository.findOneByCarpoolUUIDAndMemberUUID(carpoolUUID, memberUUID!!)
                 .also { carpoolApplicationRepository.delete(it) }
         }
