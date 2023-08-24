@@ -44,6 +44,7 @@ class CarpoolRepositoryImpl @Autowired constructor(
         return try {
             queryFactory.singleQuery {
                 select(listOf(
+                    col(Carpool::uuid),
                     col(Member::uuid),
                     col(Carpool::pickupLatitude),
                     col(Carpool::pickupLongitude),
@@ -63,6 +64,7 @@ class CarpoolRepositoryImpl @Autowired constructor(
     override fun findCarpools(currLatitude: Double, currLongitude: Double, lastUUID: UUID?): List<CarpoolInfo> {
         return queryFactory.listQuery {
             select(listOf(
+                col(Carpool::uuid),
                 col(Member::uuid),
                 col(Carpool::pickupLatitude),
                 col(Carpool::pickupLongitude),
