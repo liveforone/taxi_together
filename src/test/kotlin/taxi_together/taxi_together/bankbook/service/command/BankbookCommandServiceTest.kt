@@ -30,9 +30,9 @@ class BankbookCommandServiceTest @Autowired constructor(
 
     @Test
     @Transactional
-    fun createBankbook() {
+    fun createBankbookTest() {
         //given
-        val email = "signup_test@gmail.com"
+        val email = "test_member@gmail.com"
         val pw = "1234"
         val nickName = "nickname"
         val bank = "nh"
@@ -52,9 +52,9 @@ class BankbookCommandServiceTest @Autowired constructor(
 
     @Test
     @Transactional
-    fun updateBankbook() {
+    fun updateBankbookTest() {
         //given
-        val email = "signup_test@gmail.com"
+        val email = "test_member@gmail.com"
         val pw = "1234"
         val nickName = "nickname"
         val bank = "nh"
@@ -81,7 +81,7 @@ class BankbookCommandServiceTest @Autowired constructor(
     @Transactional
     fun onDeleteBankbookTest() {
         //given
-        val email = "signup_test@gmail.com"
+        val email = "test_member@gmail.com"
         val pw = "1234"
         val nickName = "nickname"
         val bank = "nh"
