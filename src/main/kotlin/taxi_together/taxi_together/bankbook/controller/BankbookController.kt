@@ -1,25 +1,20 @@
 package taxi_together.taxi_together.bankbook.controller
 
-import taxi_together.taxi_together.bankbook.controller.constant.BankbookControllerLog
-import taxi_together.taxi_together.bankbook.controller.constant.BankbookParam
-import taxi_together.taxi_together.bankbook.controller.constant.BankbookUrl
-import taxi_together.taxi_together.bankbook.controller.response.BankbookResponse
-import taxi_together.taxi_together.bankbook.service.command.BankbookCommandService
-import taxi_together.taxi_together.bankbook.service.query.BankbookQueryService
 import jakarta.validation.Valid
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.BindingResult
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import taxi_together.taxi_together.bankbook.controller.constant.BankbookControllerLog
+import taxi_together.taxi_together.bankbook.controller.constant.BankbookParam
+import taxi_together.taxi_together.bankbook.controller.constant.BankbookUrl
+import taxi_together.taxi_together.bankbook.controller.response.BankbookResponse
 import taxi_together.taxi_together.bankbook.dto.update.UpdateBankbook
+import taxi_together.taxi_together.bankbook.service.command.BankbookCommandService
+import taxi_together.taxi_together.bankbook.service.query.BankbookQueryService
 import taxi_together.taxi_together.globalUtil.validateBinding
 import taxi_together.taxi_together.logger
-import java.util.UUID
+import java.util.*
 
 @RestController
 class BankbookController @Autowired constructor(
