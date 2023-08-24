@@ -11,9 +11,9 @@ import java.time.LocalTime
 class CarpoolTest {
 
     @Test
-    fun calculateCarpool() {
+    fun calculateCarpoolTest() {
         //given
-        val email = "email_test@gmail.com"
+        val email = "test_member@gmail.com"
         val pw = "1234"
         val nickName = "nickName"
         val member = Member.create(email, pw, nickName)
@@ -33,6 +33,6 @@ class CarpoolTest {
 
         //then
         Assertions.assertThat(carpool.individualFare).isEqualTo(totalFare / (passengerCount + 1))
-        Assertions.assertThat(carpool.pickupDate).isEqualTo(getDatetimeDigit( LocalDateTime.of(LocalDate.of(LocalDate.now().year, month, day), LocalTime.of(hour, minute))))
+        Assertions.assertThat(carpool.pickupDate).isEqualTo(getDatetimeDigit(LocalDateTime.of(LocalDate.of(LocalDate.now().year, month, day), LocalTime.of(hour, minute))))
     }
 }
