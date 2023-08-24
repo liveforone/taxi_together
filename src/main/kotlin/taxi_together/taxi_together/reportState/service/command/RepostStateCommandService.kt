@@ -2,7 +2,7 @@ package taxi_together.taxi_together.reportState.service.command
 
 import taxi_together.taxi_together.reportState.domain.ReportState
 import taxi_together.taxi_together.reportState.dto.request.ReportMember
-import taxi_together.taxi_together.reportState.service.command.constant.ReportConstant
+import taxi_together.taxi_together.reportState.service.command.log.ReportLog
 import taxi_together.taxi_together.reportState.repository.RepostStateRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -28,7 +28,7 @@ class RepostStateCommandService @Autowired constructor(
         with(reportMember) {
             repostStateRepository.findOneByMemberUUID(memberUUID!!)
                 .also { it.addReport() }
-            logger().info(ReportConstant.REPORT_MEMBER + memberUUID)
+            logger().info(ReportLog.REPORT_MEMBER.log + memberUUID)
         }
     }
 }
