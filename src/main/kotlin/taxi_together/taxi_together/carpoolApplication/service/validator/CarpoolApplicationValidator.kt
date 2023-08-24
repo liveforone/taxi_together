@@ -33,7 +33,7 @@ class CarpoolApplicationValidator @Autowired constructor(
 
     fun validateExcessiveCarpool(carpoolUUID: UUID) {
         val countOfCarpool = carpoolApplicationRepository.countCarpoolApplicationByCarpoolUUID(carpoolUUID)
-        check(countOfCarpool <= CarpoolApplicationServiceConstant.CAPABLE_NUM) {
+        check(countOfCarpool < CarpoolApplicationServiceConstant.CAPABLE_NUM) {
             throw CarpoolApplicationException(
                 CarpoolApplicationExceptionMessage.CARPOOL_OVERPASSES
             )
