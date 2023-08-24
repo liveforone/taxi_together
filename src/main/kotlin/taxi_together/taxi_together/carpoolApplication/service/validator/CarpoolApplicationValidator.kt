@@ -24,7 +24,7 @@ class CarpoolApplicationValidator @Autowired constructor(
                 CarpoolApplicationExceptionMessage.CARPOOL_IS_COMPLETED
             )
         }
-        check(carpool.pickupDate < getDatetimeDigit(LocalDateTime.now())) {
+        check(carpool.pickupDate > getDatetimeDigit(LocalDateTime.now())) {
             throw CarpoolApplicationException(
                 CarpoolApplicationExceptionMessage.OVER_PICK_DATE
             )
