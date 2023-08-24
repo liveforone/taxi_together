@@ -7,9 +7,9 @@ import java.util.UUID
 data class CreateCarpool(
     @field:NotNull(message = "회원의 외부 식별자를 입력하세요.")
     val memberUUID: UUID?,
-    @field:NotBlank(message = "탑승지의 위도 좌표를 입력하세요.")
+    @field:NotNull(message = "탑승지의 위도 좌표를 입력하세요.")
     val pickupLatitude: Double?,
-    @field:NotBlank(message = "탑승지의 경도 좌표를 입력하세요.")
+    @field:NotNull(message = "탑승지의 경도 좌표를 입력하세요.")
     val pickupLongitude: Double?,
     @field:NotNull(message = "탑승 날짜(월)를 입력하세요.")
     val month: Int?,
