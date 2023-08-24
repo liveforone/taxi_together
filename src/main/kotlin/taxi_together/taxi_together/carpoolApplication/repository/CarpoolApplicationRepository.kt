@@ -1,0 +1,7 @@
+package taxi_together.taxi_together.carpoolApplication.repository
+
+import org.springframework.data.jpa.repository.JpaRepository
+import taxi_together.taxi_together.carpoolApplication.domain.CarpoolApplication
+import taxi_together.taxi_together.carpoolApplication.domain.CarpoolApplicationPk
+
+interface CarpoolApplicationRepository : JpaRepository<CarpoolApplication, CarpoolApplicationPk>, CarpoolApplicationCustomRepository
