@@ -1,0 +1,5 @@
+package taxi_together.taxi_together.exception.exception
+
+import taxi_together.taxi_together.exception.message.CarpoolExceptionMessage
+
+class CarpoolException(val carpoolExceptionMessage: CarpoolExceptionMessage) : RuntimeException(carpoolExceptionMessage.message)
