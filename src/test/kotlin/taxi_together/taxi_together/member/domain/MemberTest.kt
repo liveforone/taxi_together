@@ -3,8 +3,6 @@ package taxi_together.taxi_together.member.domain
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import taxi_together.taxi_together.globalUtil.isMatchPassword
-import taxi_together.taxi_together.member.domain.Member
-import taxi_together.taxi_together.member.domain.Role
 
 class MemberTest {
 
