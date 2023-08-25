@@ -1,0 +1,5 @@
+package taxi_together.taxi_together.exception.exception
+
+import taxi_together.taxi_together.exception.message.SupportOpinionExceptionMessage
+
+class SupportOpinionException(val supportOpinionExceptionMessage: SupportOpinionExceptionMessage) : RuntimeException(supportOpinionExceptionMessage.message)
