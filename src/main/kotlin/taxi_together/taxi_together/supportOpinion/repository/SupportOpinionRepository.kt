@@ -1,0 +1,6 @@
+package taxi_together.taxi_together.supportOpinion.repository
+
+import org.springframework.data.jpa.repository.JpaRepository
+import taxi_together.taxi_together.supportOpinion.domain.SupportOpinion
+
+interface SupportOpinionRepository : JpaRepository<SupportOpinion, Long>, SupportOpinionCustomRepository
