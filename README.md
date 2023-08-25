@@ -34,6 +34,7 @@
 * [계좌 정보 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/BANKBOOK_DESIGN.md)
 * [카풀 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/CARPOOL_DESIGN.md)
 * [카풀 신청 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/CARPOOL_APPLICATION_DESIGN.md)
+* [지원 의견(support) 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/SUPPORT_OPINION_DESIGN.md)
 
 ## 3. 고민점
 ### 기술적 고민
