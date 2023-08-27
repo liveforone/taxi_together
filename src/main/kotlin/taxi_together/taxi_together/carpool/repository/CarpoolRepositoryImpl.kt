@@ -17,9 +17,7 @@ import taxi_together.taxi_together.carpool.dto.response.CarpoolInfo
 import taxi_together.taxi_together.carpool.repository.constant.CarpoolRepoConstant
 import taxi_together.taxi_together.exception.exception.CarpoolException
 import taxi_together.taxi_together.exception.message.CarpoolExceptionMessage
-import taxi_together.taxi_together.globalUtil.calculateCoordinateLatitudeRange
-import taxi_together.taxi_together.globalUtil.calculateCoordinateLongitudeRange
-import taxi_together.taxi_together.globalUtil.getDatetimeDigit
+import taxi_together.taxi_together.globalUtil.*
 import taxi_together.taxi_together.member.domain.Member
 import java.time.LocalDateTime
 import java.util.*
@@ -88,15 +86,15 @@ class CarpoolRepositoryImpl @Autowired constructor(
 
     private fun getCoordinateLatitude(latitude: Double): Range<Double> {
         return Range.closed(
-            calculateCoordinateLatitudeRange(latitude).start,
-            calculateCoordinateLatitudeRange(latitude).endInclusive
+            calculateCoordinateLatitudeRange(latitude, FIVE_HUNDRED_METER).start,
+            calculateCoordinateLatitudeRange(latitude, FIVE_HUNDRED_METER).endInclusive
         )
     }
 
     private fun getCoordinateLongitude(longitude: Double): Range<Double> {
         return Range.closed(
-            calculateCoordinateLongitudeRange(longitude).start,
-            calculateCoordinateLongitudeRange(longitude).endInclusive
+            calculateCoordinateLongitudeRange(longitude, FIVE_HUNDRED_METER).start,
+            calculateCoordinateLongitudeRange(longitude, FIVE_HUNDRED_METER).endInclusive
         )
     }
 
