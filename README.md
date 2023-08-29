@@ -19,7 +19,7 @@
 * 코드를 살펴보시면 복잡한 로직과 함께 사용자 친화적인 설계를 엿보실 수 있습니다.
 * 더욱 효과적인 대중교통 서비스를 만들어내기 위한 비즈니스적 고민이 문서에 많이 담겨있습니다.
 ### 기술 스택
-* Framework : Spring Boot 3.1.2
+* Framework : Spring Boot 3.1.3
 * Lang : Kotlin 1.9.0, Jvm17
 * Data : Spring Data Jpa & Kotlin-JDSL & MySql
 * Security : Spring Security & Jwt
