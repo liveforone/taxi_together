@@ -5,10 +5,10 @@ import taxi_together.taxi_together.supportOpinion.dto.response.SupportOpinionInf
 import java.util.UUID
 
 interface SupportOpinionCustomRepository {
-    fun findOneByUUID(uuid: UUID): SupportOpinion
-    fun findOneByUUIDAndWriter(uuid: UUID, writerUUID: UUID): SupportOpinion
-    fun findOneDtoByUUID(uuid: UUID): SupportOpinionInfo
-    fun findAllSupportOpinions(lastUUID: UUID?): List<SupportOpinionInfo>
-    fun findSupportOpinionsByType(opinionType: String, lastUUID: UUID?): List<SupportOpinionInfo>
-    fun findSupportOpinionsByWriter(writerUUID: UUID, lastUUID: UUID?): List<SupportOpinionInfo>
+    fun findOneById(id: Long): SupportOpinion
+    fun findOneByIdAndWriter(id: Long, writerUUID: UUID): SupportOpinion
+    fun findOneDtoById(id: Long): SupportOpinionInfo
+    fun findAllSupportOpinions(lastId: Long?): List<SupportOpinionInfo>
+    fun findSupportOpinionsByType(opinionType: String, lastId: Long?): List<SupportOpinionInfo>
+    fun findSupportOpinionsByWriter(writerUUID: UUID, lastId: Long?): List<SupportOpinionInfo>
 }

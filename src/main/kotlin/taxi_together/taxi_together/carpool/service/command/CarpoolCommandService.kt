@@ -11,7 +11,6 @@ import taxi_together.taxi_together.carpool.repository.CarpoolRepository
 import taxi_together.taxi_together.carpool.service.validator.CarpoolServiceValidator
 import taxi_together.taxi_together.carpoolApplication.repository.CarpoolApplicationRepository
 import taxi_together.taxi_together.member.repository.MemberRepository
-import java.util.UUID
 
 @Service
 @Transactional
@@ -21,7 +20,7 @@ class CarpoolCommandService @Autowired constructor(
     private val carpoolApplicationRepository: CarpoolApplicationRepository,
     private val carpoolServiceValidator: CarpoolServiceValidator
 ) {
-    fun createCarpool(createCarpool: CreateCarpool): UUID {
+    fun createCarpool(createCarpool: CreateCarpool): Long {
         return with(createCarpool) {
             Carpool.create(
                 member = memberRepository.findOneByUUID(memberUUID!!),
@@ -32,25 +31,25 @@ class CarpoolCommandService @Autowired constructor(
                 hour!!,
                 minute!!,
                 destination!!
-            ).run { carpoolRepository.save(this).uuid }
+            ).run { carpoolRepository.save(this).id!! }
         }
     }
 
     fun calculateCarpool(calculateCarpool: CalculateCarpool) {
         with(calculateCarpool) {
-            carpoolRepository.findOneByUUID(uuid!!)
+            carpoolRepository.findOneById(id!!)
                 .also {
                     it.calculateCarpool(
                         totalFare!!,
-                        passengerCount = carpoolApplicationRepository.countCarpoolApplicationByCarpoolUUID(uuid).toInt()
+                        passengerCount = carpoolApplicationRepository.countCarpoolApplicationByCarpoolId(id).toInt()
                     ) }
         }
     }
 
     fun removeCarpool(removeCarpool: RemoveCarpool) {
         with(removeCarpool) {
-            carpoolServiceValidator.validateCountOfCarpoolIsZero(uuid!!)
-            carpoolRepository.findOneByUUID(uuid).also { carpoolRepository.delete(it) }
+            carpoolServiceValidator.validateCountOfCarpoolIsZero(id!!)
+            carpoolRepository.findOneById(id).also { carpoolRepository.delete(it) }
         }
     }
 }

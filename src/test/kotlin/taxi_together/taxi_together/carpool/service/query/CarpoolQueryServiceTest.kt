@@ -31,7 +31,7 @@ class CarpoolQueryServiceTest @Autowired constructor(
 
     @Test
     @Transactional
-    fun getCarpoolByUUIDTest() {
+    fun getCarpoolByIdTest() {
         //given
         val email = "signup_test@gmail.com"
         val pw = "1234"
@@ -45,19 +45,19 @@ class CarpoolQueryServiceTest @Autowired constructor(
         val memberUUID = memberCommandService.login(LoginRequest(email, pw)).uuid
         val pickupLatitude = 37.494461
         val pickupLongitude = 127.029592
-        val month = 8
+        val month = 10
         val day = 23
         val hour = 18
         val minute = 17
         val destination = "잠실역 3번 출구"
-        val uuid = carpoolCommandService.createCarpool(CreateCarpool(memberUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
+        val id = carpoolCommandService.createCarpool(CreateCarpool(memberUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
         flushAndClear()
 
         //when
-        val carpool = carpoolQueryService.getCarpoolByUUID(uuid)
+        val carpool = carpoolQueryService.getCarpoolById(id)
 
         //then
-        Assertions.assertThat(carpool.pickupDate).isEqualTo(getDatetimeDigit( LocalDateTime.of(LocalDate.of(LocalDate.now().year, month, day), LocalTime.of(hour, minute))))
+        Assertions.assertThat(carpool.pickupDate).isEqualTo(getDatetimeDigit(LocalDateTime.of(LocalDate.of(LocalDate.now().year, month, day), LocalTime.of(hour, minute))))
     }
 
     @Test
@@ -76,8 +76,8 @@ class CarpoolQueryServiceTest @Autowired constructor(
         val memberUUID = memberCommandService.login(LoginRequest(email, pw)).uuid
         val pickupLatitude = 37.494461
         val pickupLongitude = 127.029592
-        val month = 8
-        val day = 29
+        val month = 10
+        val day = 23
         val hour = 18
         val minute = 17
         val destination = "잠실역 3번 출구"
@@ -85,8 +85,8 @@ class CarpoolQueryServiceTest @Autowired constructor(
         flushAndClear()
 
         //when
-        val myLatitude = 37.4894208
-        val myLongitude = 127.0301258
+        val myLatitude = 37.49446
+        val myLongitude = 127.029592
         val carpools = carpoolQueryService.getCarpools(myLatitude, myLongitude, null)
 
         //then

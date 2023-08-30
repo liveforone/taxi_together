@@ -4,8 +4,8 @@ import jakarta.validation.constraints.NotNull
 import java.util.UUID
 
 data class CreateCarpoolApplication(
-    @field:NotNull(message = "카풀의 외부 식별자를 입력하세요.")
-    val carpoolUUID: UUID?,
+    @field:NotNull(message = "카풀의 식별자를 입력하세요.")
+    val carpoolId: Long?,
     @field:NotNull(message = "회원의 외부 식별자를 입력하세요.")
     val memberUUID: UUID?
 )

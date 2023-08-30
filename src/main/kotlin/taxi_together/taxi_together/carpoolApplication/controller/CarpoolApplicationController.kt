@@ -28,8 +28,8 @@ class CarpoolApplicationController @Autowired constructor(
     private val carpoolApplicationCommandService: CarpoolApplicationCommandService
 ) {
     @GetMapping(CarpoolApplicationUrl.CARPOOL_APP_BELONG_CARPOOL)
-    fun belongCarpool(@PathVariable(CarpoolApplicationParam.CARPOOL_UUID) carpoolUUID: UUID): ResponseEntity<*> {
-        val carpoolApps = carpoolApplicationQueryService.getCarpoolApplicationsByCarpoolUUID(carpoolUUID)
+    fun belongCarpool(@PathVariable(CarpoolApplicationParam.CARPOOL_ID) carpoolId: Long): ResponseEntity<*> {
+        val carpoolApps = carpoolApplicationQueryService.getCarpoolApplicationsByCarpoolId(carpoolId)
         return CarpoolApplicationResponse.belongCarpoolSuccess(carpoolApps)
     }
 

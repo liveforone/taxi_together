@@ -10,15 +10,14 @@ import taxi_together.taxi_together.exception.exception.CarpoolApplicationExcepti
 import taxi_together.taxi_together.exception.message.CarpoolApplicationExceptionMessage
 import taxi_together.taxi_together.globalUtil.getDatetimeDigit
 import java.time.LocalDateTime
-import java.util.*
 
 @Component
 class CarpoolApplicationValidator @Autowired constructor(
     private val carpoolRepository: CarpoolRepository,
     private val carpoolApplicationRepository: CarpoolApplicationRepository
 ) {
-    fun validateCarpoolStateAndDate(carpoolUUID: UUID) {
-        val carpool = carpoolRepository.findOneByUUID(carpoolUUID)
+    fun validateCarpoolStateAndDate(carpoolId: Long) {
+        val carpool = carpoolRepository.findOneById(carpoolId)
         check(carpool.carpoolState == CarpoolState.UNCOMPLETED) {
             throw CarpoolApplicationException(
                 CarpoolApplicationExceptionMessage.CARPOOL_IS_COMPLETED
@@ -31,8 +30,8 @@ class CarpoolApplicationValidator @Autowired constructor(
         }
     }
 
-    fun validateExcessiveCarpool(carpoolUUID: UUID) {
-        val countOfCarpool = carpoolApplicationRepository.countCarpoolApplicationByCarpoolUUID(carpoolUUID)
+    fun validateExcessiveCarpool(carpoolId: Long) {
+        val countOfCarpool = carpoolApplicationRepository.countCarpoolApplicationByCarpoolId(carpoolId)
         check(countOfCarpool < CarpoolApplicationServiceConstant.CAPABLE_NUM) {
             throw CarpoolApplicationException(
                 CarpoolApplicationExceptionMessage.CARPOOL_OVERPASSES

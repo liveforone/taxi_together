@@ -23,7 +23,6 @@ import taxi_together.taxi_together.carpool.service.command.CarpoolCommandService
 import taxi_together.taxi_together.carpool.service.query.CarpoolQueryService
 import taxi_together.taxi_together.globalUtil.validateBinding
 import taxi_together.taxi_together.logger
-import java.util.UUID
 
 @RestController
 class CarpoolController @Autowired constructor(
@@ -31,8 +30,8 @@ class CarpoolController @Autowired constructor(
     private val carpoolCommandService: CarpoolCommandService
 ) {
     @GetMapping(CarpoolUrl.DETAIL)
-    fun detail(@PathVariable(CarpoolParam.UUID) uuid: UUID): ResponseEntity<*> {
-        val carpool = carpoolQueryService.getCarpoolByUUID(uuid)
+    fun detail(@PathVariable(CarpoolParam.ID) id: Long): ResponseEntity<*> {
+        val carpool = carpoolQueryService.getCarpoolById(id)
         return CarpoolResponse.detailSuccess(carpool)
     }
 
@@ -40,9 +39,9 @@ class CarpoolController @Autowired constructor(
     fun search(
         @RequestParam(CarpoolParam.CURR_LATITUDE) currLatitude: Double,
         @RequestParam(CarpoolParam.CURR_LONGITUDE) currLongitude: Double,
-        @RequestParam(CarpoolParam.LAST_UUID, required = false) lastUUID: UUID?
+        @RequestParam(CarpoolParam.LAST_ID, required = false) lastId: Long?
     ): ResponseEntity<*> {
-        val carpools = carpoolQueryService.getCarpools(currLatitude, currLongitude, lastUUID)
+        val carpools = carpoolQueryService.getCarpools(currLatitude, currLongitude, lastId)
         return CarpoolResponse.searchSuccess(carpools)
     }
 

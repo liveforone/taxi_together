@@ -57,14 +57,15 @@ class CarpoolCommandServiceTest @Autowired constructor(
         val hour = 18
         val minute = 17
         val destination = "잠실역 3번 출구"
-        val carpoolUUID = carpoolCommandService.createCarpool(CreateCarpool(ownerOfCarpoolUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
+        val carpoolId = carpoolCommandService.createCarpool(CreateCarpool(ownerOfCarpoolUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
         flushAndClear()
 
         //then
-        Assertions.assertThat(carpoolQueryService.getCarpoolByUUID(carpoolUUID).pickupDate)
+        Assertions.assertThat(carpoolQueryService.getCarpoolById(carpoolId).pickupDate)
             .isEqualTo(getDatetimeDigit(LocalDateTime.of(LocalDate.of(LocalDate.now().year, month, day), LocalTime.of(hour, minute))))
     }
 
+    //==날짜 + 시간에 민감하므로, 테스트시마다 카풀 시간을 미래시간으로 변경하고 테스트 진행해야한다.
     @Test
     @Transactional
     fun calculateCarpoolTest() {
@@ -81,12 +82,12 @@ class CarpoolCommandServiceTest @Autowired constructor(
         val ownerOfCarpoolUUID = memberCommandService.login(LoginRequest(ownerEmail, ownerPw)).uuid
         val pickupLatitude = 37.494461
         val pickupLongitude = 127.029592
-        val month = 8
+        val month = 10
         val day = 23
         val hour = 18
         val minute = 17
         val destination = "잠실역 3번 출구"
-        val carpoolUUID = carpoolCommandService.createCarpool(CreateCarpool(ownerOfCarpoolUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
+        val carpoolId = carpoolCommandService.createCarpool(CreateCarpool(ownerOfCarpoolUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
         flushAndClear()
 
         val memberEmail = "test_member@gmail.com"
@@ -99,16 +100,16 @@ class CarpoolCommandServiceTest @Autowired constructor(
         flushAndClear()
 
         val memberUUID = memberCommandService.login(LoginRequest(memberEmail, memberPw)).uuid
-        carpoolApplicationCommandService.createCarpoolApplication(CreateCarpoolApplication(carpoolUUID, memberUUID))
+        carpoolApplicationCommandService.createCarpoolApplication(CreateCarpoolApplication(carpoolId, memberUUID))
         flushAndClear()
 
         //when
         val totalFare = 4900
-        carpoolCommandService.calculateCarpool(CalculateCarpool(carpoolUUID, totalFare))
+        carpoolCommandService.calculateCarpool(CalculateCarpool(carpoolId, totalFare))
         flushAndClear()
 
         //then
-        Assertions.assertThat(carpoolQueryService.getCarpoolByUUID(carpoolUUID).individualFare)
+        Assertions.assertThat(carpoolQueryService.getCarpoolById(carpoolId).individualFare)
             .isEqualTo(totalFare / 2)
     }
 
@@ -133,15 +134,15 @@ class CarpoolCommandServiceTest @Autowired constructor(
         val hour = 18
         val minute = 17
         val destination = "잠실역 3번 출구"
-        val carpoolUUID = carpoolCommandService.createCarpool(CreateCarpool(ownerOfCarpoolUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
+        val carpoolId = carpoolCommandService.createCarpool(CreateCarpool(ownerOfCarpoolUUID, pickupLatitude, pickupLongitude, month, day, hour, minute, destination))
         flushAndClear()
 
         //when
-        carpoolCommandService.removeCarpool(RemoveCarpool(carpoolUUID, ownerOfCarpoolUUID))
+        carpoolCommandService.removeCarpool(RemoveCarpool(carpoolId, ownerOfCarpoolUUID))
         flushAndClear()
 
         //then
-        Assertions.assertThatThrownBy { carpoolQueryService.getCarpoolByUUID(carpoolUUID) }
+        Assertions.assertThatThrownBy { carpoolQueryService.getCarpoolById(carpoolId) }
             .isInstanceOf(CarpoolException::class.java)
     }
 }

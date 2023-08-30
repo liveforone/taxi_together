@@ -46,7 +46,7 @@ class CarpoolApplicationCommandServiceTest @Autowired constructor(
         val pickupLatitude = 37.494461
         val pickupLongitude = 127.029592
         val month = 8
-        val day = 23
+        val day = 30
         val hour = 18
         val minute = 17
         val destination = "잠실역 3번 출구"
@@ -90,7 +90,7 @@ class CarpoolApplicationCommandServiceTest @Autowired constructor(
         val pickupLatitude = 37.494461
         val pickupLongitude = 127.029592
         val month = 8
-        val day = 23
+        val day = 30
         val hour = 18
         val minute = 17
         val destination = "잠실역 3번 출구"

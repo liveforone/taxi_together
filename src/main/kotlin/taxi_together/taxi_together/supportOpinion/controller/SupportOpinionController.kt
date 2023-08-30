@@ -29,32 +29,32 @@ class SupportOpinionController @Autowired constructor(
     private val supportOpinionCommandService: SupportOpinionCommandService
 ) {
     @GetMapping(SupportOpinionUrl.DETAIL)
-    fun detail(@PathVariable(SupportOpinionParam.UUID) uuid: UUID): ResponseEntity<*> {
-        val supportOpinion = supportOpinionQueryService.getOneByUUID(uuid)
+    fun detail(@PathVariable(SupportOpinionParam.ID) id: Long): ResponseEntity<*> {
+        val supportOpinion = supportOpinionQueryService.getOneById(id)
         return SupportOpinionResponse.detailSuccess(supportOpinion)
     }
 
     @GetMapping(SupportOpinionUrl.ALL)
-    fun all(@RequestParam(SupportOpinionParam.LAST_UUID, required = false) lastUUID: UUID?): ResponseEntity<*> {
-        val supports = supportOpinionQueryService.getAllSupportOpinion(lastUUID)
+    fun all(@RequestParam(SupportOpinionParam.LAST_ID, required = false) lastId: Long?): ResponseEntity<*> {
+        val supports = supportOpinionQueryService.getAllSupportOpinion(lastId)
         return SupportOpinionResponse.allSuccess(supports)
     }
 
     @GetMapping(SupportOpinionUrl.BY_OPINION_TYPE)
     fun byOpinionType(
         @PathVariable(SupportOpinionParam.OPINION_TYPE) opinionType: String,
-        @RequestParam(SupportOpinionParam.LAST_UUID, required = false) lastUUID: UUID?
+        @RequestParam(SupportOpinionParam.LAST_ID, required = false) lastId: Long?
     ): ResponseEntity<*> {
-        val supports = supportOpinionQueryService.getSupportOpinionsByType(opinionType, lastUUID)
+        val supports = supportOpinionQueryService.getSupportOpinionsByType(opinionType, lastId)
         return SupportOpinionResponse.byOpinionTypeSuccess(supports)
     }
 
     @GetMapping(SupportOpinionUrl.BY_WRITER)
     fun byWriter(
         @PathVariable(SupportOpinionParam.WRITER_UUID) writerUUID: UUID,
-        @RequestParam(SupportOpinionParam.LAST_UUID, required = false) lastUUID: UUID?
+        @RequestParam(SupportOpinionParam.LAST_ID, required = false) lastId: Long?
     ): ResponseEntity<*> {
-        val supports = supportOpinionQueryService.getSupportOpinionsByWriter(writerUUID, lastUUID)
+        val supports = supportOpinionQueryService.getSupportOpinionsByWriter(writerUUID, lastId)
         return SupportOpinionResponse.byWriterSuccess(supports)
     }
 

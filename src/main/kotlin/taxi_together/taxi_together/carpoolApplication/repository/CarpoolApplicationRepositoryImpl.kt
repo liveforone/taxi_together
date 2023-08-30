@@ -18,13 +18,13 @@ import java.util.*
 class CarpoolApplicationRepositoryImpl @Autowired constructor(
     private val queryFactory: SpringDataQueryFactory
 ) : CarpoolApplicationCustomRepository {
-    override fun findOneByCarpoolUUIDAndMemberUUID(carpoolUUID: UUID, memberUUID: UUID): CarpoolApplication {
+    override fun findOneByCarpoolIdAndMemberUUID(carpoolId: Long, memberUUID: UUID): CarpoolApplication {
         return try {
             queryFactory.singleQuery {
                 select(entity(CarpoolApplication::class))
                 from(CarpoolApplication::class)
                 where(
-                    col(CarpoolApplication::carpoolUUID).equal(carpoolUUID)
+                    col(CarpoolApplication::carpoolId).equal(carpoolId)
                         .and(col(CarpoolApplication::memberUUID).equal(memberUUID))
                 )
             }
@@ -33,29 +33,29 @@ class CarpoolApplicationRepositoryImpl @Autowired constructor(
         }
     }
 
-    override fun findCarpoolApplicationsByCarpoolUUID(carpoolUUID: UUID): List<CarpoolApplicationBelongCarpoolInfo> {
+    override fun findCarpoolApplicationsByCarpoolId(carpoolId: Long): List<CarpoolApplicationBelongCarpoolInfo> {
         return queryFactory.listQuery {
             select(listOf(col(CarpoolApplication::memberUUID)))
             from(CarpoolApplication::class)
-            where(col(CarpoolApplication::carpoolUUID).equal(carpoolUUID))
+            where(col(CarpoolApplication::carpoolId).equal(carpoolId))
             orderBy(col(CarpoolApplication::timestamp).desc())
         }
     }
 
     override fun findCarpoolApplicationsByMemberUUID(memberUUID: UUID): List<CarpoolApplicationBelongMemberInfo> {
         return queryFactory.listQuery {
-            select(listOf(col(CarpoolApplication::carpoolUUID)))
+            select(listOf(col(CarpoolApplication::carpoolId)))
             from(CarpoolApplication::class)
             where(col(CarpoolApplication::memberUUID).equal(memberUUID))
             orderBy(col(CarpoolApplication::timestamp).desc())
         }
     }
 
-    override fun countCarpoolApplicationByCarpoolUUID(carpoolUUID: UUID): Long {
+    override fun countCarpoolApplicationByCarpoolId(carpoolId: Long): Long {
         return queryFactory.singleQuery {
             select(count(entity(CarpoolApplication::class)))
             from(CarpoolApplication::class)
-            where(col(CarpoolApplication::carpoolUUID).equal(carpoolUUID))
+            where(col(CarpoolApplication::carpoolId).equal(carpoolId))
         }
     }
 }

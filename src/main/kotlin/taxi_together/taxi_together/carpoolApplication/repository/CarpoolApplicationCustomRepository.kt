@@ -6,8 +6,8 @@ import taxi_together.taxi_together.carpoolApplication.dto.response.CarpoolApplic
 import java.util.UUID
 
 interface CarpoolApplicationCustomRepository {
-    fun findOneByCarpoolUUIDAndMemberUUID(carpoolUUID: UUID, memberUUID: UUID): CarpoolApplication
-    fun findCarpoolApplicationsByCarpoolUUID(carpoolUUID: UUID): List<CarpoolApplicationBelongCarpoolInfo>
+    fun findOneByCarpoolIdAndMemberUUID(carpoolId: Long, memberUUID: UUID): CarpoolApplication
+    fun findCarpoolApplicationsByCarpoolId(carpoolId: Long): List<CarpoolApplicationBelongCarpoolInfo>
     fun findCarpoolApplicationsByMemberUUID(memberUUID: UUID): List<CarpoolApplicationBelongMemberInfo>
-    fun countCarpoolApplicationByCarpoolUUID(carpoolUUID: UUID): Long
+    fun countCarpoolApplicationByCarpoolId(carpoolId: Long): Long
 }

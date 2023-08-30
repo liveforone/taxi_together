@@ -11,10 +11,10 @@ import java.util.UUID
 class SupportOpinionQueryService @Autowired constructor(
     private val supportOpinionRepository: SupportOpinionRepository
 ) {
-    fun getOneByUUID(uuid: UUID) = supportOpinionRepository.findOneDtoByUUID(uuid)
-    fun getAllSupportOpinion(lastUUID: UUID?) = supportOpinionRepository.findAllSupportOpinions(lastUUID)
-    fun getSupportOpinionsByType(opinionType: String, lastUUID: UUID?) =
-        supportOpinionRepository.findSupportOpinionsByType(opinionType, lastUUID)
-    fun getSupportOpinionsByWriter(writerUUID: UUID, lastUUID: UUID?) =
-        supportOpinionRepository.findSupportOpinionsByWriter(writerUUID, lastUUID)
+    fun getOneById(id: Long) = supportOpinionRepository.findOneDtoById(id)
+    fun getAllSupportOpinion(lastId: Long?) = supportOpinionRepository.findAllSupportOpinions(lastId)
+    fun getSupportOpinionsByType(opinionType: String, lastId: Long?) =
+        supportOpinionRepository.findSupportOpinionsByType(opinionType, lastId)
+    fun getSupportOpinionsByWriter(writerUUID: UUID, lastId: Long?) =
+        supportOpinionRepository.findSupportOpinionsByWriter(writerUUID, lastId)
 }

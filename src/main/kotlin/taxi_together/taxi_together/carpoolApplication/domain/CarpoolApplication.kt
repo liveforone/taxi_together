@@ -8,11 +8,11 @@ import java.util.UUID
 @Entity
 @IdClass(CarpoolApplicationPk::class)
 class CarpoolApplication private constructor(
-    @Id @Column(name = CarpoolApplicationConstant.CARPOOL_UUID) val carpoolUUID: UUID,
+    @Id @Column(name = CarpoolApplicationConstant.CARPOOL_ID) val carpoolId: Long,
     @Id @Column(name = CarpoolApplicationConstant.MEMBER_UUID) val memberUUID: UUID,
     @Column(updatable = false) val timestamp: Int = getCurrentTimestamp()
 ) {
     companion object {
-        fun create(carpoolUUID: UUID, memberUUID: UUID) = CarpoolApplication(carpoolUUID, memberUUID)
+        fun create(carpoolId: Long, memberUUID: UUID) = CarpoolApplication(carpoolId, memberUUID)
     }
 }

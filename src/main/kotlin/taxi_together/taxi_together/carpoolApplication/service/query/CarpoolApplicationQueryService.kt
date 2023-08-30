@@ -11,8 +11,8 @@ import java.util.UUID
 class CarpoolApplicationQueryService @Autowired constructor(
     private val carpoolApplicationRepository: CarpoolApplicationRepository
 ) {
-    fun getCarpoolApplicationsByCarpoolUUID(carpoolUUID: UUID) =
-        carpoolApplicationRepository.findCarpoolApplicationsByCarpoolUUID(carpoolUUID)
+    fun getCarpoolApplicationsByCarpoolId(carpoolId: Long) =
+        carpoolApplicationRepository.findCarpoolApplicationsByCarpoolId(carpoolId)
 
     fun getCarpoolApplicationsByMemberUUID(memberUUID: UUID) =
         carpoolApplicationRepository.findCarpoolApplicationsByMemberUUID(memberUUID)

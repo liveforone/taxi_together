@@ -17,17 +17,17 @@ class CarpoolApplicationCommandService @Autowired constructor(
 ) {
     fun createCarpoolApplication(createCarpoolApplication: CreateCarpoolApplication) {
         with(createCarpoolApplication) {
-            carpoolApplicationValidator.validateCarpoolStateAndDate(carpoolUUID!!)
-            carpoolApplicationValidator.validateExcessiveCarpool(carpoolUUID)
-            CarpoolApplication.create(carpoolUUID, memberUUID!!)
+            carpoolApplicationValidator.validateCarpoolStateAndDate(carpoolId!!)
+            carpoolApplicationValidator.validateExcessiveCarpool(carpoolId)
+            CarpoolApplication.create(carpoolId, memberUUID!!)
                 .also { carpoolApplicationRepository.save(it) }
         }
     }
 
     fun cancelCarpoolApplication(cancelCarpoolApplication: CancelCarpoolApplication) {
         with(cancelCarpoolApplication) {
-            carpoolApplicationValidator.validateCarpoolStateAndDate(carpoolUUID!!)
-            carpoolApplicationRepository.findOneByCarpoolUUIDAndMemberUUID(carpoolUUID, memberUUID!!)
+            carpoolApplicationValidator.validateCarpoolStateAndDate(carpoolId!!)
+            carpoolApplicationRepository.findOneByCarpoolIdAndMemberUUID(carpoolId, memberUUID!!)
                 .also { carpoolApplicationRepository.delete(it) }
         }
     }

@@ -6,19 +6,15 @@ import org.hibernate.annotations.OnDeleteAction
 import taxi_together.taxi_together.carpool.domain.constant.CarpoolConstant
 import taxi_together.taxi_together.converter.CarpoolStateConverter
 import taxi_together.taxi_together.globalUtil.DATETIME_TYPE
-import taxi_together.taxi_together.globalUtil.UUID_TYPE
-import taxi_together.taxi_together.globalUtil.createUUID
 import taxi_together.taxi_together.globalUtil.getDatetimeDigit
 import taxi_together.taxi_together.member.domain.Member
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.util.*
 
 @Entity
 class Carpool private constructor(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null,
-    @Column(columnDefinition = UUID_TYPE, unique = true, nullable = false) val uuid: UUID = createUUID(),
     @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(updatable = false) @OnDelete(action = OnDeleteAction.CASCADE) val member: Member,
     @Convert(converter = CarpoolStateConverter::class) @Column(
         nullable = false,

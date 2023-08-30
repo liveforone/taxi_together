@@ -23,83 +23,83 @@ import java.util.*
 class SupportOpinionRepositoryImpl @Autowired constructor(
     private val queryFactory: SpringDataQueryFactory
 ) : SupportOpinionCustomRepository {
-    override fun findOneByUUID(uuid: UUID): SupportOpinion {
+    override fun findOneById(id: Long): SupportOpinion {
         return try {
             queryFactory.singleQuery {
                 select(entity(SupportOpinion::class))
                 from(SupportOpinion::class)
-                where(col(SupportOpinion::uuid).equal(uuid))
+                where(col(SupportOpinion::id).equal(id))
             }
         } catch (e: NoResultException) {
             throw SupportOpinionException(SupportOpinionExceptionMessage.SUPPORT_OPINION_IS_NULL)
         }
     }
 
-    override fun findOneByUUIDAndWriter(uuid: UUID, writerUUID: UUID): SupportOpinion {
+    override fun findOneByIdAndWriter(id: Long, writerUUID: UUID): SupportOpinion {
         return try {
             queryFactory.singleQuery {
                 select(entity(SupportOpinion::class))
                 from(SupportOpinion::class)
                 join(SupportOpinion::writer)
-                where(col(SupportOpinion::uuid).equal(uuid).and(col(Member::uuid).equal(writerUUID)))
+                where(col(SupportOpinion::id).equal(id).and(col(Member::uuid).equal(writerUUID)))
             }
         } catch (e: NoResultException) {
             throw SupportOpinionException(SupportOpinionExceptionMessage.SUPPORT_OPINION_IS_NULL)
         }
     }
 
-    override fun findOneDtoByUUID(uuid: UUID): SupportOpinionInfo {
+    override fun findOneDtoById(id: Long): SupportOpinionInfo {
         return try {
             queryFactory.singleQuery {
                 select(listOf(
-                    col(SupportOpinion::uuid),
+                    col(SupportOpinion::id),
                     col(SupportOpinion::content),
                     col(SupportOpinion::supportOpinionType),
                     col(SupportOpinion::createdDatetime)
                 ))
                 from(SupportOpinion::class)
-                where(col(SupportOpinion::uuid).equal(uuid))
+                where(col(SupportOpinion::id).equal(id))
             }
         } catch (e: NoResultException) {
             throw SupportOpinionException(SupportOpinionExceptionMessage.SUPPORT_OPINION_IS_NULL)
         }
     }
 
-    override fun findAllSupportOpinions(lastUUID: UUID?): List<SupportOpinionInfo> {
+    override fun findAllSupportOpinions(lastId: Long?): List<SupportOpinionInfo> {
         return queryFactory.listQuery {
             select(listOf(
-                col(SupportOpinion::uuid),
+                col(SupportOpinion::id),
                 col(SupportOpinion::content),
                 col(SupportOpinion::supportOpinionType),
                 col(SupportOpinion::createdDatetime)
             ))
             from(SupportOpinion::class)
-            where(ltLastUUID(lastUUID))
+            where(ltLastId(lastId))
             orderBy(col(SupportOpinion::id).desc())
             limit(SupportOpinionRepoConstant.PAGE_SIZE)
         }
     }
 
-    override fun findSupportOpinionsByType(opinionType: String, lastUUID: UUID?): List<SupportOpinionInfo> {
+    override fun findSupportOpinionsByType(opinionType: String, lastId: Long?): List<SupportOpinionInfo> {
         return queryFactory.listQuery {
             select(listOf(
-                col(SupportOpinion::uuid),
+                col(SupportOpinion::id),
                 col(SupportOpinion::content),
                 col(SupportOpinion::supportOpinionType),
                 col(SupportOpinion::createdDatetime)
             ))
             from(SupportOpinion::class)
             where(col(SupportOpinion::supportOpinionType).equal(SupportOpinionType.create(opinionType)))
-            where(ltLastUUID(lastUUID))
+            where(ltLastId(lastId))
             orderBy(col(SupportOpinion::id).desc())
             limit(SupportOpinionRepoConstant.PAGE_SIZE)
         }
     }
 
-    override fun findSupportOpinionsByWriter(writerUUID: UUID, lastUUID: UUID?): List<SupportOpinionInfo> {
+    override fun findSupportOpinionsByWriter(writerUUID: UUID, lastId: Long?): List<SupportOpinionInfo> {
         return queryFactory.listQuery {
             select(listOf(
-                col(SupportOpinion::uuid),
+                col(SupportOpinion::id),
                 col(SupportOpinion::content),
                 col(SupportOpinion::supportOpinionType),
                 col(SupportOpinion::createdDatetime)
@@ -107,21 +107,13 @@ class SupportOpinionRepositoryImpl @Autowired constructor(
             from(SupportOpinion::class)
             join(SupportOpinion::writer)
             where(col(Member::uuid).equal(writerUUID))
-            where(ltLastUUID(lastUUID))
+            where(ltLastId(lastId))
             orderBy(col(SupportOpinion::id).desc())
             limit(SupportOpinionRepoConstant.PAGE_SIZE)
         }
     }
 
-    private fun findLastId(lastUUID: UUID): Long {
-        return queryFactory.singleQuery {
-            select(listOf(col(SupportOpinion::id)))
-            from(SupportOpinion::class)
-            where(col(SupportOpinion::uuid).equal(lastUUID))
-        }
-    }
-
-    private fun <T> SpringDataCriteriaQueryDsl<T>.ltLastUUID(lastUUID: UUID?): PredicateSpec? {
-        return lastUUID?.let { and(col(SupportOpinion::id).lessThan(findLastId(it))) }
+    private fun <T> SpringDataCriteriaQueryDsl<T>.ltLastId(lastId: Long?): PredicateSpec? {
+        return lastId?.let { and(col(SupportOpinion::id).lessThan(it)) }
     }
 }

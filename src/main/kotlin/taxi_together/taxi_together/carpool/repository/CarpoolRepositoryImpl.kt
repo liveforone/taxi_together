@@ -20,29 +20,28 @@ import taxi_together.taxi_together.exception.message.CarpoolExceptionMessage
 import taxi_together.taxi_together.globalUtil.*
 import taxi_together.taxi_together.member.domain.Member
 import java.time.LocalDateTime
-import java.util.*
 
 @Repository
 class CarpoolRepositoryImpl @Autowired constructor(
     private val queryFactory: SpringDataQueryFactory
 ) : CarpoolCustomRepository {
-    override fun findOneByUUID(uuid: UUID): Carpool {
+    override fun findOneById(id: Long): Carpool {
         return try {
             queryFactory.singleQuery {
                 select(entity(Carpool::class))
                 from(Carpool::class)
-                where(col(Carpool::uuid).equal(uuid))
+                where(col(Carpool::id).equal(id))
             }
         } catch (e: NoResultException) {
             throw CarpoolException(CarpoolExceptionMessage.CARPOOL_IS_NULL)
         }
     }
 
-    override fun findOneDtoByUUID(uuid: UUID): CarpoolInfo {
+    override fun findOneDtoById(id: Long): CarpoolInfo {
         return try {
             queryFactory.singleQuery {
                 select(listOf(
-                    col(Carpool::uuid),
+                    col(Carpool::id),
                     col(Member::uuid),
                     col(Carpool::pickupLatitude),
                     col(Carpool::pickupLongitude),
@@ -52,17 +51,17 @@ class CarpoolRepositoryImpl @Autowired constructor(
                 ))
                 from(Carpool::class)
                 join(Carpool::member)
-                where(col(Carpool::uuid).equal(uuid))
+                where(col(Carpool::id).equal(id))
             }
         } catch (e: NoResultException) {
             throw CarpoolException(CarpoolExceptionMessage.CARPOOL_IS_NULL)
         }
     }
 
-    override fun findCarpools(currLatitude: Double, currLongitude: Double, lastUUID: UUID?): List<CarpoolInfo> {
+    override fun findCarpools(currLatitude: Double, currLongitude: Double, lastId: Long?): List<CarpoolInfo> {
         return queryFactory.listQuery {
             select(listOf(
-                col(Carpool::uuid),
+                col(Carpool::id),
                 col(Member::uuid),
                 col(Carpool::pickupLatitude),
                 col(Carpool::pickupLongitude),
@@ -78,7 +77,7 @@ class CarpoolRepositoryImpl @Autowired constructor(
                     .and(col(Carpool::pickupLatitude).between(getCoordinateLatitude(currLatitude)))
                     .and(col(Carpool::pickupLongitude).between(getCoordinateLongitude(currLongitude)))
             )
-            where(ltLastUUID(lastUUID))
+            where(ltLastId(lastId))
             orderBy(col(Carpool::id).desc())
             limit(CarpoolRepoConstant.LIMIT_SIZE)
         }
@@ -98,15 +97,7 @@ class CarpoolRepositoryImpl @Autowired constructor(
         )
     }
 
-    private fun findLastId(lastUUID: UUID): Long {
-        return queryFactory.singleQuery {
-            select(listOf(col(Carpool::id)))
-            from(Carpool::class)
-            where(col(Carpool::uuid).equal(lastUUID))
-        }
-    }
-
-    private fun <T> SpringDataCriteriaQueryDsl<T>.ltLastUUID(lastUUID: UUID?): PredicateSpec? {
-        return lastUUID?.let { and(col(Carpool::id).lessThan(findLastId(it))) }
+    private fun <T> SpringDataCriteriaQueryDsl<T>.ltLastId(lastId: Long?): PredicateSpec? {
+        return lastId?.let { and(col(Carpool::id).lessThan(it)) }
     }
 }

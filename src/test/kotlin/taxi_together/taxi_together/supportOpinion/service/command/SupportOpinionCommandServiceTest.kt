@@ -30,7 +30,7 @@ class SupportOpinionCommandServiceTest @Autowired constructor(
 
     @Test
     @Transactional
-    fun createSupportOpinion() {
+    fun createSupportOpinionTest() {
         //given
         val email = "test_member@gmail.com"
         val pw = "1234"
@@ -45,17 +45,17 @@ class SupportOpinionCommandServiceTest @Autowired constructor(
         //when
         val content = "신고를 몇번 당해야 계정이 정지되나요?"
         val opinionType = "qna"
-        val supportUUID = supportOpinionCommandService.createSupportOpinion(CreateSupportOpinion(writerUUID, content, opinionType))
+        val supportId = supportOpinionCommandService.createSupportOpinion(CreateSupportOpinion(writerUUID, content, opinionType))
         flushAndClear()
 
         //then
-        Assertions.assertThat(supportOpinionQueryService.getOneByUUID(supportUUID).supportOpinionType)
+        Assertions.assertThat(supportOpinionQueryService.getOneById(supportId).supportOpinionType)
             .isEqualTo(SupportOpinionType.create(opinionType))
     }
 
     @Test
     @Transactional
-    fun removeSupportOpinion() {
+    fun removeSupportOpinionTest() {
         //given
         val email = "test_member@gmail.com"
         val pw = "1234"
@@ -68,15 +68,15 @@ class SupportOpinionCommandServiceTest @Autowired constructor(
         val writerUUID = memberCommandService.login(LoginRequest(email, pw)).uuid
         val content = "신고를 몇번 당해야 계정이 정지되나요?"
         val opinionType = "qna"
-        val supportUUID = supportOpinionCommandService.createSupportOpinion(CreateSupportOpinion(writerUUID, content, opinionType))
+        val supportId = supportOpinionCommandService.createSupportOpinion(CreateSupportOpinion(writerUUID, content, opinionType))
         flushAndClear()
 
         //when
-        supportOpinionCommandService.removeSupportOpinion(RemoveSupportOpinion(supportUUID, writerUUID))
+        supportOpinionCommandService.removeSupportOpinion(RemoveSupportOpinion(supportId, writerUUID))
         flushAndClear()
 
         //then
-        Assertions.assertThatThrownBy { supportOpinionQueryService.getOneByUUID(supportUUID) }
+        Assertions.assertThatThrownBy { supportOpinionQueryService.getOneById(supportId) }
             .isInstanceOf(SupportOpinionException::class.java)
     }
 }
