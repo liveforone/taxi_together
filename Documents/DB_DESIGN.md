@@ -1,7 +1,7 @@
 # DB 설계
 
 ## ER-Diagram
-
+![image](https://github.com/liveforone/taxi_together/assets/88976237/c4374d4b-3773-48ce-80a9-7674ef077b17)
 
 ## 테이블 생성 및 제약조건 명시
 ### 회원 -> member
