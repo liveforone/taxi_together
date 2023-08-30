@@ -1,7 +1,7 @@
 # 카풀 신청 설계
 
 ## 상세 설계
-* 카풀의 uuid와 회원의 uuid를 모두 id로, 즉 복합키를 갖습니다.
+* 카풀의 id와 회원의 uuid를 모두 id로, 즉 복합키를 갖습니다.
 * 정렬을 위해 unix의 timestamp를 사용하였습니다. 이는 필자의 프로젝트 중 복합키를 사용하는 엔티티를 정렬하기 위해 자주 사용되는 방식입니다.
 * 카풀을 신청하려면 카풀이 마감되지 않은 상태여야하며, 
 * 택시 탑승 시간이 현재의 시간보다 미래여야합니다.
@@ -12,7 +12,7 @@
 
 ## API 설계
 ```
-[GET] /carpool-application/belong/carpool/{carpoolUUID}
+[GET] /carpool-application/belong/carpool/{carpoolId}
 [GET] /carpool-application/belong/member/{memberUUID}
 [POST] /carpool-application/create
 [DELETE] /carpool-application/cancel
@@ -22,13 +22,13 @@
 ```json
 [CreateCarpoolApplication]
 {
-  "carpoolUUID": "af852996-0868-4398-9b80-eda9b448cf6c",
+  "carpoolId": 1,
   "memberUUID": "afc0f64b-53fd-43aa-8a08-817287d8f6c5"
 }
 
 [CancelCarpoolApplication]
 {
-  "carpoolUUID": "af852996-0868-4398-9b80-eda9b448cf6c",
+  "carpoolId": 1,
   "memberUUID": "afc0f64b-53fd-43aa-8a08-817287d8f6c5"
 }
 ```
@@ -41,4 +41,5 @@ create table carpool_application (
       member_uuid binary(16) not null,
       primary key (carpool_uuid, member_uuid)
 );
+CREATE INDEX carpool_application_timestamp_idx ON carpool_application (timestamp);
 ```
