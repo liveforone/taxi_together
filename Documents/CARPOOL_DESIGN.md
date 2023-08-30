@@ -12,7 +12,7 @@
 
 ## API 설계
 ```
-[GET] /carpool/detail/{uuid}
+[GET] /carpool/detail/{id}
 [GET] /carpool/search
 [POST] /carpool/create
 [PUT] /carpool/calculate
@@ -35,13 +35,13 @@
 
 [CalculateCarpool]
 {
-  "uuid": "7f40e542-f878-41a1-a820-9bae8da38985",
+  "uuid": 1,
   "totalFare": 4900
 }
 
 [RemoveCarpool]
 {
-  "uuid": "3a5db143-4a68-4c7b-b04d-3b157ca983a8",
+  "uuid": 1,
   "memberUUID": "d2c70c4d-f0f1-4f99-9ea5-332a9c7addcf"
 }
 ```
@@ -55,11 +55,10 @@ create table carpool (
       id bigint not null auto_increment,
       member_id bigint,
       pickup_date BIGINT(12) not null,
-      uuid BINARY(16) not null UNIQUE,
       carpool_state VARCHAR(11) not null,
       destination varchar(255) not null,
       primary key (id),
       foreign key (member_id) references on Member (id) on delete cascade
 );
-CREATE INDEX uuid_idx ON carpool (uuid);
+CREATE INDEX carpool_coordinate_idx ON carpool (carpool_state, pickup_date, pickup_latitude, pickup_longitude);
 ```
