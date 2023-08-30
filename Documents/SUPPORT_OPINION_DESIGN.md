@@ -8,7 +8,7 @@
 
 ## API 설계
 ```
-[GET] /support/opinion/detail/{uuid}
+[GET] /support/opinion/detail/{id}
 [GET] /support/opinion/all
 [GET] /support/opinion/type/{opinionType}
 [GET] /support/opinion/writer/{writerUUID}
@@ -27,7 +27,7 @@
 
 [RemoveSupportOpinion]
 {
-  "uuid": "09e683b5-78b5-43c9-9934-2b72277b0490",
+  "id": 1,
   "writerUUID": "82602415-ca61-4601-a167-91929ec9e959"
 }
 ```
@@ -38,11 +38,10 @@ create table support_opinion (
       created_datetime BIGINT(12) not null,
       id bigint not null auto_increment,
       writer_id bigint,
-      uuid BINARY(16) not null UNIQUE,
       content VARCHAR(300) not null,
       support_opinion_type VARCHAR(8) not null,
       primary key (id),
       foreign key (writer_id) references member (id) on delete cascade
 );
-CREATE INDEX uuid_idx ON support_opinion (uuid);
+CREATE INDEX support_opinion_type_idx ON support_opinion (support_opinion_type);
 ```
