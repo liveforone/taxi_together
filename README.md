@@ -27,8 +27,7 @@
 
 ## 2. 프로젝트 설계
 ### 시스템 설계
-* [전체 설계]()
-* [DB 설계]()
+* [DB 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/DB_DESIGN.md)
 ### 엔티티 설계
 * [회원 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/MEMBER_DESIGN.md)
 * [회원 신고 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/REPORT_STATE_DESIGN.md)
@@ -36,7 +35,7 @@
 * [카풀 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/CARPOOL_DESIGN.md)
 * [카풀 신청 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/CARPOOL_APPLICATION_DESIGN.md)
 * [지원 의견(support) 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/SUPPORT_OPINION_DESIGN.md)
-* [지원 의견(support) 답변 설계]()
+* [지원 의견(support) 답변 설계](https://github.com/liveforone/taxi_together/blob/master/Documents/SUPPORT_ANSWER_DESIGN.md)
 
 ## 3. 고민점
 ### 기술적 고민
